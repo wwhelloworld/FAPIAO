@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.lcsd.fapiao"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //图片加载框架
+    implementation 'com.github.bumptech.glide:glide:3.+'
+    implementation files('libs/jackson-all-1.9.7.jar')
+    //zxing二维码识别
+    implementation 'com.github.open-android:Zxing:v1.0.3'
+    //日历控件
+    implementation 'com.squareup:android-times-square:1.6.5@aar'
+    //带json上传的
+    implementation 'com.tsy:myokhttp:1.1.4'
+    //阿里json解析
+    implementation 'com.alibaba:fastjson:1.2.46'
+}

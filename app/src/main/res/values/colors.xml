@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#28a9d0</color>
+    <color name="colorPrimaryDark">#28a9d0</color>
+    <color name="colorAccent">#28a9d0</color>
+    <color name="white">#ffffff</color>
+    <color name="lightwhite">#9eb8c7</color>
+    <color name="blue">#28a9d0</color>
+    <color name="black">#000000</color>
+    <color name="color_xian">#cacaca</color>
+    <color name="gray">#e8ecf0</color>
+    <color name="gray1">#2a3238</color>
+    <color name="green">#33ffe5</color>
+    <color name="yellow">#ea9a0d</color>
+    <color name="hardblue1">#1f2b34</color>
+    <color name="hardblue2">#0b1720</color>
+
+</resources>
