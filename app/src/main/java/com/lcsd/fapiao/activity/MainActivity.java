@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_description = findViewById(R.id.tv_description);
         tv_scan.setOnClickListener(this);
         tv_input.setOnClickListener(this);
-        tv_to_chou.setOnClickListener(this);
-        tv_to_dui.setOnClickListener(this);
+        tv_to_chou.setOnClickListener(this);        tv_to_dui.setOnClickListener(this);
         tv_description.setOnClickListener(this);
         //dialog宽高
         cjDialog = new CJDialog(context);
