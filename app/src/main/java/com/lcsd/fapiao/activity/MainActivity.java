@@ -1,40 +1,26 @@
 package com.lcsd.fapiao.activity;
 
-import android.Manifest;
-import android.app.Activity;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.zxing.activity.CaptureActivity;
+import com.cretin.www.wheelsruflibrary.listener.RotateListener;
+import com.cretin.www.wheelsruflibrary.view.WheelSurfView;
 import com.lcsd.fapiao.R;
 import com.lcsd.fapiao.dialog.CJDialog;
-import com.lcsd.fapiao.dialog.CalendarDialog;
-import com.lcsd.fapiao.http.MyApplication;
-import com.lcsd.fapiao.utils.JacksonUtils;
-import com.lcsd.fapiao.view.LuckPanLayout;
-import com.tsy.sdk.myokhttp.response.RawResponseHandler;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context;
@@ -76,12 +62,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.tv_to_scan:
                 cjDialog.show();
-                ImageView go = cjDialog.findViewById(R.id.go);
-                final LuckPanLayout luckPanLayout = cjDialog.findViewById(R.id.luckpan_layout);
-                go.setOnClickListener(new View.OnClickListener() {
+                //获取第一个视图
+                final WheelSurfView wheelSurfView =cjDialog. findViewById(R.id.wheelSurfView);
+                //添加滚动监听
+                wheelSurfView.setRotateListener(new RotateListener() {
                     @Override
-                    public void onClick(View view) {
-                        luckPanLayout.rotate(-1, 100);
+                    public void rotateEnd(int position, String des) {
+                        Toast.makeText(MainActivity.this, "结束了 " + position + "   " + des, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void rotating(ValueAnimator valueAnimator) {
+
+                    }
+
+                    @Override
+                    public void rotateBefore(ImageView goImg) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("温馨提示");
+                        builder.setMessage("确定要花费100积分抽奖？");
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //模拟位置
+                                int position = new Random().nextInt(7) + 1;
+                                wheelSurfView.startRotate(position);
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        builder.show();
+
                     }
                 });
                 break;

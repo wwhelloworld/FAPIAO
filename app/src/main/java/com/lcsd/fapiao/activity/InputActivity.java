@@ -29,7 +29,6 @@ import com.lcsd.fapiao.R;
 import com.lcsd.fapiao.dialog.CalendarDialog;
 import com.lcsd.fapiao.entity.JYInfo;
 import com.lcsd.fapiao.http.MyApplication;
-import com.lcsd.fapiao.utils.JacksonUtils;
 import com.lcsd.fapiao.utils.Mytools;
 import com.tsy.sdk.myokhttp.response.RawResponseHandler;
 
@@ -201,8 +200,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         map.put("invoiceAmount", "");//发票金额
         map.put("checkCode", et_jym.getText().toString());//校验码
         map.put("validCode", et_yzm.getText().toString());//验证码
-        String requestJson = JacksonUtils.getJsonFromMap(map);
-        MyApplication.getInstance().getMyOkHttp().post().url(check_url).jsonParams(requestJson).enqueue(new RawResponseHandler() {
+        MyApplication.getInstance().getMyOkHttp().post().url(check_url).jsonParams(null).enqueue(new RawResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
                 if (response != null) {

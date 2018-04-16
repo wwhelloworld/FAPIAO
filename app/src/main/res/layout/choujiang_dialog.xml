@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:luckpan="http://schemas.android.com/apk/res-auto"
+    xmlns:wheelSurfView="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,33 +13,24 @@
         android:orientation="vertical">
 
 
-        <com.lcsd.fapiao.view.LuckPanLayout
-            android:id="@+id/luckpan_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:background="@android:color/transparent">
+        <!--自定义方式-->
+        <com.cretin.www.wheelsruflibrary.view.WheelSurfView
+            android:id="@+id/wheelSurfView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            wheelSurfView:colors="@array/colors"
+            wheelSurfView:deses="@array/names"
+            wheelSurfView:goImg="@drawable/node"
+            wheelSurfView:huanImg="@drawable/yuanhuan"
 
-            <com.lcsd.fapiao.view.RotatePan
-                android:id="@+id/rotatePan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                luckpan:icons="@array/icons"
-                luckpan:names="@array/names"
-                luckpan:pannum="8" />
+            wheelSurfView:minTimes="3"
+            wheelSurfView:textColor="#FF0000"
+            wheelSurfView:type="1"
+            wheelSurfView:typenum="7"
+            wheelSurfView:vartime="75">
 
-            <ImageView
-                android:id="@+id/go"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:src="@drawable/node"
-                android:tag="startbtn" />
-
-
-        </com.lcsd.fapiao.view.LuckPanLayout>
+        </com.cretin.www.wheelsruflibrary.view.WheelSurfView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

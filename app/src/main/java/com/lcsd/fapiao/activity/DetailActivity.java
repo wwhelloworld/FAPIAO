@@ -14,12 +14,10 @@ import android.widget.Toast;
 
 import com.lcsd.fapiao.R;
 import com.lcsd.fapiao.dialog.CJDialog;
-import com.lcsd.fapiao.dialog.CalendarDialog;
 import com.lcsd.fapiao.entity.JYInfo;
 import com.lcsd.fapiao.sql.DBUtil;
 import com.lcsd.fapiao.sql.HistoryContent;
 import com.lcsd.fapiao.utils.Mytools;
-import com.lcsd.fapiao.view.LuckPanLayout;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context;
@@ -126,14 +124,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.tv_choujiang:
                 cjDialog.show();
-                ImageView go = cjDialog.findViewById(R.id.go);
-                final LuckPanLayout luckPanLayout = cjDialog.findViewById(R.id.luckpan_layout);
-                go.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        luckPanLayout.rotate(-1, 100);
-                    }
-                });
 
 
                 //插入数据

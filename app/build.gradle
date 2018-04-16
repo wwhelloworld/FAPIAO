@@ -27,7 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //图片加载框架
     implementation 'com.github.bumptech.glide:glide:3.+'
-    implementation files('libs/jackson-all-1.9.7.jar')
+
     //zxing二维码识别
     implementation 'com.github.open-android:Zxing:v1.0.3'
     //日历控件
@@ -36,4 +36,5 @@ dependencies {
     implementation 'com.tsy:myokhttp:1.1.4'
     //阿里json解析
     implementation 'com.alibaba:fastjson:1.2.46'
+    implementation project(':wheelsruflibrary')
 }
