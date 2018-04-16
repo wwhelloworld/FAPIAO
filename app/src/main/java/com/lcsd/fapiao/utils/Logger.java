@@ -7,7 +7,7 @@ public class Logger {
 	/**
 	 * log tag
 	 */
-	private String tag = "LuckPan";// application name
+	private String tag = "发票助手";// application name
 
 	//TODO 配置Log打开或关闭
 	/**

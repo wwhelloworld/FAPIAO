@@ -148,6 +148,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.iv_rili:
                 calendarDialog.show();
+                calendarDialog.getView(tv_calendar);
                 break;
             case R.id.tv_commit:
                 try {
