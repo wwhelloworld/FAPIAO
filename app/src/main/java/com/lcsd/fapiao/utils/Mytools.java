@@ -23,11 +23,11 @@ public class Mytools {
         return (int) (spValue * fontScale + 0.5f);
     }
 
-    public static double change(double a){
-        return a * Math.PI  / 180;
+    public static double change(double a) {
+        return a * Math.PI / 180;
     }
 
-    public static double changeAngle(double a){
+    public static double changeAngle(double a) {
         return a * 180 / Math.PI;
     }
 
@@ -54,6 +54,20 @@ public class Mytools {
         String sstr = "";
         sstr = str.substring(str.length() - i, str.length());
         return sstr;
+    }
+
+    public static class utility {
+        private static long lastClickTime;
+
+        public static boolean isFastDoubleClick() {
+            long time = System.currentTimeMillis();
+            long timeD = time - lastClickTime;
+            if (0 < timeD && timeD < 1000) {
+                return true;
+            }
+            lastClickTime = time;
+            return false;
+        }
     }
 
     /**
@@ -102,8 +116,7 @@ public class Mytools {
     }
 
 
-
-   // private
+    // private
 /*/**
  * 校验不含税金额或校验码
 function validateBhsjeJym(bhsjejym){

@@ -152,7 +152,23 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tv_commit:
                 try {
-                    requestData();
+                    if (!et_yzm.getText().equals("")) {
+                        Toast.makeText(context, "验证码错误！", Toast.LENGTH_SHORT).show();
+
+                    } else if (!et_jym.getText().equals("")) {
+                        Toast.makeText(context, "校验码错误！", Toast.LENGTH_SHORT).show();
+                    } else if (!et_fphm.getText().equals("")) {
+                        Toast.makeText(context, "校验码错误", Toast.LENGTH_SHORT).show();
+
+                    } else if (!et_fpdm.getText().equals("")) {
+                        Toast.makeText(context, "发票代码错误！", Toast.LENGTH_SHORT).show();
+
+                    } else if (tv_calendar.getText().equals("")) {
+                        Toast.makeText(context, "日期填写错误！", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        requestData();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -235,6 +251,11 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        et_fpdm.getText().clear();
+        et_fphm.getText().clear();
+        et_jym.getText().clear();
+        et_yzm.getText().clear();
+        tv_calendar.setText("");
         if (requestCode == REQ_CODE) {
             if (data != null) {
                 String result = data.getStringExtra(CaptureActivity.SCAN_QRCODE_RESULT);
@@ -255,8 +276,12 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         type = sourceStrArray[1];
         et_fpdm.setText(sourceStrArray[2]);//代码
         et_fphm.setText(sourceStrArray[3]);//号码
-        tv_calendar.setText(Mytools.strToDateFormat(sourceStrArray[5]));//日期
-        et_jym.setText(Mytools.strbacksubstring(6, sourceStrArray[6]));//校验码
+        if (sourceStrArray[5] != null && !sourceStrArray[5].equals("")) {
+            tv_calendar.setText(Mytools.strToDateFormat(sourceStrArray[5]));//日期
+        }
+        if (sourceStrArray[6] != null && !sourceStrArray[6].equals("")) {
+            et_jym.setText(Mytools.strbacksubstring(6, sourceStrArray[6]));//校验码
+        }
     }
 
 

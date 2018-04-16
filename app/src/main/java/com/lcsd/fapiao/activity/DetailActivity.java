@@ -1,6 +1,8 @@
 package com.lcsd.fapiao.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,9 +17,13 @@ import android.widget.Toast;
 import com.lcsd.fapiao.R;
 import com.lcsd.fapiao.dialog.CJDialog;
 import com.lcsd.fapiao.entity.JYInfo;
+import com.lcsd.fapiao.listener.RotateListener;
 import com.lcsd.fapiao.sql.DBUtil;
 import com.lcsd.fapiao.sql.HistoryContent;
 import com.lcsd.fapiao.utils.Mytools;
+import com.lcsd.fapiao.view.WheelSurfView;
+
+import java.util.Random;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context;
@@ -86,17 +92,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tv_invoice_No.setText("发票号码\n" + jyInfo.getData().getInvoiceNo());
         //抽奖按钮
         tv_choujiang = findViewById(R.id.tv_choujiang);
-        tv_choujiang.setOnClickListener(this);
-//dialog宽高
-        cjDialog = new CJDialog(context);
-        Window window = cjDialog.getWindow();
-        WindowManager m = getWindowManager();
-        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
-        p.height = (int) (d.getHeight() * 0.66); // 改变的是dialog框在屏幕中的位置而不是大小
-        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.65
-        window.setAttributes(p);
+        //防止重复点击
 
+        tv_choujiang.setOnClickListener(this);
         //获取数据库
         mDBUtil = new DBUtil(context);
         historyContent = new HistoryContent();
@@ -121,17 +119,82 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_choujiang:
-                cjDialog.show();
 
+        //防止控件的重复点击，导致dialog多重出现，id失败
+        if (Mytools.utility.isFastDoubleClick()) {
+            return;
+        } else {
+            switch (view.getId()) {
+                case R.id.tv_choujiang:
+                    if (!jyInfo.getData().getInvoiceCode().substring(0,3).equals("034")) {
+                        Toast.makeText(context, "非安徽地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                //插入数据
-                historyContent.setFp_jym(jyInfo.getData().getCheckCode());
-                historyContent.setFp_dm(jyInfo.getData().getInvoiceCode());
-                historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
-                historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
-                historyContent.setFp_amount(jyInfo.getData().getInvoiceAmount());
+                        //dialog宽高
+                        cjDialog = new CJDialog(context);
+                        cjDialog.setCancelable(false);
+                        Window window = cjDialog.getWindow();
+                        WindowManager m = getWindowManager();
+                        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+                        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
+                        p.height = (int) (d.getHeight() * 0.70); // 改变的是dialog框在屏幕中的位置而不是大小
+                        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.65
+                        window.setAttributes(p);
+                        cjDialog.show();
+
+                        //获取第一个视图
+                        final WheelSurfView wheelSurfView = cjDialog.findViewById(R.id.wheelSurfView1);
+                        final ImageView iv_cancle = cjDialog.findViewById(R.id.iv_dialog_cancel);
+                        final TextView tv_input = cjDialog.findViewById(R.id.tv_input_info);
+                        tv_input.setBackgroundResource(R.drawable.content_moren);
+                        iv_cancle.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                cjDialog.cancel();
+                                Log.d("TAG====", "dialog销毁了");
+                            }
+                        });
+                        //添加滚动监听
+                        wheelSurfView.setRotateListener(new RotateListener() {
+                            @Override
+                            public void rotateEnd(int position, String des) {
+                                //获得结果取消点击监听
+                                iv_cancle.setVisibility(View.VISIBLE);
+                                wheelSurfView.setRotateListener(null);
+                                tv_input.setBackgroundResource(R.drawable.content_commit);
+                                tv_input.setClickable(true);
+                                tv_input.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        cjDialog.cancel();//销毁dialog
+                                        startActivity(new Intent(context, InformationActivity.class));
+                                    }
+                                });
+                                Toast.makeText(context, "恭喜您获得了:" + des, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void rotating(ValueAnimator valueAnimator) {
+                                iv_cancle.setVisibility(View.INVISIBLE);
+
+                            }
+
+                            @Override
+                            public void rotateBefore(ImageView goImg) {
+                                //模拟位置
+                                int position = new Random().nextInt(7) + 1;
+                                wheelSurfView.startRotate(position);
+                                tv_input.setClickable(false);
+
+                            }
+                        });
+
+                        //插入数据
+                        historyContent.setFp_jym(jyInfo.getData().getCheckCode());
+                        historyContent.setFp_dm(jyInfo.getData().getInvoiceCode());
+                        historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
+                        historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
+                        historyContent.setFp_amount(jyInfo.getData().getInvoiceAmount());
                 /*if (historyContent.getFp_dm().contains(jyInfo.getData().getInvoiceCode())) {//如果含有这一项就删除再添加记录
                     if (historyContent.getFp_no().contains(jyInfo.getData().getBlueInvoiceNo())) {
                         return;
@@ -141,48 +204,52 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     mDBUtil.Insert(historyContent);
                 }*/
-                mDBUtil.Insert(historyContent);
-                break;
+                        mDBUtil.Insert(historyContent);
+                    }
+
+                    break;
+            }
         }
+
     }
-    ///**
-    // * 校验发票代码
-    // */
-    //var fplx ='99';
-    //function changeBhsjeJym(fpdm){
-    //	if(fpdm.length==10 || fpdm.length==12){
-    //		var reg=/^[0-9]*$/;
-    //		if(!reg.test(fpdm)){
-    //			$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-    //			return false;
-    //		}else{
-    //			fplx = getFplx(fpdm);
-    //			if(fplx == '01' || fplx == '02' || fplx == '03'){
-    //				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
-    //				if(bhsjejymFlag!=1){
-    //					$('#bhsjejymform label').text("不含税价");
-    //					$('#bhsjejymform input').attr("placeholder","请输入不含税金额").attr("name","bhsje").attr("maxlength","30").val("");
-    //					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
-    //				}
-    //				bhsjejymFlag = 1;
-    //				return true;
-    //			}else if(fplx == '04' || fplx == '10' || fplx == '11'){
-    //				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
-    //				if(bhsjejymFlag!=0){
-    //					$('#bhsjejymform label').text("校 验 码").addClass("letterSpacing1");
-    //					$('#bhsjejymform input').attr("placeholder","请输入校验码后六位").attr("name","skm").attr("maxlength","6").val("");
-    //					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
-    //				}
-    //				bhsjejymFlag = 0;
-    //				return true;
-    //			}else{
-    //				$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-    //				return false;
-    //			}
-    //		}
-    //	}else{
-    //		$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-    //		return false;
-    //	}
-    //}
+///**
+// * 校验发票代码
+// */
+//var fplx ='99';
+//function changeBhsjeJym(fpdm){
+//	if(fpdm.length==10 || fpdm.length==12){
+//		var reg=/^[0-9]*$/;
+//		if(!reg.test(fpdm)){
+//			$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
+//			return false;
+//		}else{
+//			fplx = getFplx(fpdm);
+//			if(fplx == '01' || fplx == '02' || fplx == '03'){
+//				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
+//				if(bhsjejymFlag!=1){
+//					$('#bhsjejymform label').text("不含税价");
+//					$('#bhsjejymform input').attr("placeholder","请输入不含税金额").attr("name","bhsje").attr("maxlength","30").val("");
+//					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
+//				}
+//				bhsjejymFlag = 1;
+//				return true;
+//			}else if(fplx == '04' || fplx == '10' || fplx == '11'){
+//				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
+//				if(bhsjejymFlag!=0){
+//					$('#bhsjejymform label').text("校 验 码").addClass("letterSpacing1");
+//					$('#bhsjejymform input').attr("placeholder","请输入校验码后六位").attr("name","skm").attr("maxlength","6").val("");
+//					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
+//				}
+//				bhsjejymFlag = 0;
+//				return true;
+//			}else{
+//				$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
+//				return false;
+//			}
+//		}
+//	}else{
+//		$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
+//		return false;
+//	}
+//}
 }
