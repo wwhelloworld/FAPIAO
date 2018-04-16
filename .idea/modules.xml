@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FAPIAO.iml" filepath="$PROJECT_DIR$/FAPIAO.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wheelsruflibrary/wheelsruflibrary.iml" filepath="$PROJECT_DIR$/wheelsruflibrary/wheelsruflibrary.iml" />
     </modules>
   </component>
 </project>

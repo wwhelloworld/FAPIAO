@@ -38,6 +38,7 @@
         <activity
             android:name=".activity.CJHistory"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.InformationActivity"></activity>
     </application>
 
 </manifest>

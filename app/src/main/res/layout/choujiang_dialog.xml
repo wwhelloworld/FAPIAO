@@ -11,30 +11,30 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
-
         <!--自定义方式-->
-        <com.cretin.www.wheelsruflibrary.view.WheelSurfView
-            android:id="@+id/wheelSurfView"
+        <com.lcsd.fapiao.view.WheelSurfView
+            android:id="@+id/wheelSurfView1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_margin="20dp"
             wheelSurfView:colors="@array/colors"
             wheelSurfView:deses="@array/names"
-            wheelSurfView:goImg="@drawable/node"
-            wheelSurfView:huanImg="@drawable/yuanhuan"
-
+            wheelSurfView:goImg="@mipmap/node"
+            wheelSurfView:huanImg="@mipmap/yuanhuan"
+            wheelSurfView:icons="@array/icons"
             wheelSurfView:minTimes="3"
             wheelSurfView:textColor="#FF0000"
             wheelSurfView:type="1"
             wheelSurfView:typenum="7"
             wheelSurfView:vartime="75">
 
-        </com.cretin.www.wheelsruflibrary.view.WheelSurfView>
+        </com.lcsd.fapiao.view.WheelSurfView>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/yellow"
+            android:id="@+id/tv_input_info"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_height="40dp"
+            android:background="@drawable/content_commit"
             android:textColor="@color/white"
             android:text="填写信息领取"/>
     </LinearLayout>

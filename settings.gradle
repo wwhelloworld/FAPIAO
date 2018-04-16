@@ -1,1 +1,1 @@
-include ':app', ':wheelsruflibrary'
+include ':app'
