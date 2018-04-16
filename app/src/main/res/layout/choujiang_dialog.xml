@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheelSurfView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:wheelSurfView="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_dialog_cancel"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:src="@drawable/img_cancel" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,14 +37,15 @@
             wheelSurfView:vartime="75">
 
         </com.lcsd.fapiao.view.WheelSurfView>
+
         <TextView
             android:id="@+id/tv_input_info"
             android:layout_width="100dp"
-            android:gravity="center"
             android:layout_height="40dp"
             android:background="@drawable/content_commit"
-            android:textColor="@color/white"
-            android:text="填写信息领取"/>
+            android:gravity="center"
+            android:text="填写信息领取"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

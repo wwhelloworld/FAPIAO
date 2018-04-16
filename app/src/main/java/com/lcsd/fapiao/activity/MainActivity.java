@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_to_scan:
                 //dialog宽高
                 cjDialog = new CJDialog(context);
-                //cjDialog.setCancelable(false);
+                cjDialog.setCancelable(false);
                 Window window = cjDialog.getWindow();
                 WindowManager m = getWindowManager();
                 Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
@@ -68,17 +69,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //获取第一个视图
                 final WheelSurfView wheelSurfView = cjDialog.findViewById(R.id.wheelSurfView1);
+                final ImageView iv_cancle = cjDialog.findViewById(R.id.iv_dialog_cancel);
+                final TextView tv_input = cjDialog.findViewById(R.id.tv_input_info);
+                tv_input.setBackgroundResource(R.drawable.content_moren);
+                iv_cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        cjDialog.cancel();
+                        Log.d("TAG====","dialog销毁了");
+                    }
+                });
                 //添加滚动监听
                 wheelSurfView.setRotateListener(new RotateListener() {
                     @Override
                     public void rotateEnd(int position, String des) {
                         //获得结果取消点击监听
+                        iv_cancle.setVisibility(View.VISIBLE);
                         wheelSurfView.setRotateListener(null);
-                        Toast.makeText(MainActivity.this, "结束了 " + position + "   " + des, Toast.LENGTH_SHORT).show();
+                        tv_input.setBackgroundResource(R.drawable.content_commit);
+                        tv_input.setClickable(true);
+                        tv_input.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                cjDialog.cancel();//销毁dialog
+                                startActivity(new Intent(context, InformationActivity.class));
+                            }
+                        });
+                        Toast.makeText(MainActivity.this, "恭喜您获得了:" +des, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void rotating(ValueAnimator valueAnimator) {
+                        iv_cancle.setVisibility(View.INVISIBLE);
 
                     }
 
@@ -87,16 +109,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //模拟位置
                         int position = new Random().nextInt(7) + 1;
                         wheelSurfView.startRotate(position);
+                        tv_input.setClickable(false);
+
                     }
                 });
-                TextView tv_input = cjDialog.findViewById(R.id.tv_input_info);
-                tv_input.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        cjDialog.cancel();//销毁dialog
-                        startActivity(new Intent(context,InformationActivity.class));
-                    }
-                });
+
                 break;
             case R.id.ll_to_input:
                 startActivity(new Intent(context, InputActivity.class));
