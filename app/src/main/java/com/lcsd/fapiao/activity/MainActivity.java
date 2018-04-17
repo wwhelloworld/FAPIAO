@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.ll_to_scan:
 
-
                 break;
             case R.id.ll_to_input:
                 startActivity(new Intent(context, InputActivity.class));

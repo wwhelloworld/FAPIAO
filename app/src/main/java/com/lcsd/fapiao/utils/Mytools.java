@@ -70,6 +70,7 @@ public class Mytools {
         }
     }
 
+
     /**
      * 发票类型判断
      */

@@ -30,7 +30,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private JYInfo jyInfo;
     private TextView tv_buyer_name, tv_buyer_TaxNo, tv_buyer_AddressPhone, tv_buyer_Account, tv_saler_Name,
             tv_total_Amount, tv_tax_Amount, tv_invoice_Amount, tv_tax_rate, tv_goods_Name, tv_invoice_Date,
-            tv_invoice_Code, tv_invoice_No, tv_choujiang;
+            tv_invoice_Code, tv_invoice_No, tv_choujiang, tv_invoice_name;
     //抽奖历史
     private DBUtil mDBUtil;
     private HistoryContent historyContent;
@@ -51,6 +51,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if (jyInfo != null) {
             Log.d("接受的集合====", jyInfo.toString());
         }
+        //发票类型名字
+        tv_invoice_name = findViewById(R.id.tv_invoice_name);
+        tv_invoice_name.setText(setfpname(jyInfo.getData().getInvoiceCode()));
         //购买方
         tv_buyer_name = findViewById(R.id.tv_buyer_name);
         tv_buyer_name.setText(jyInfo.getData().getBuyerName());
@@ -102,19 +105,25 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private boolean getfpdm(String fpdm) {
-        String fplx;
-        if (fpdm.length() == 10 || fpdm.length() == 12) {
-            fplx = Mytools.getfplx(fpdm);
-            if (fplx == "01" || fplx == "02" || fplx == "03") {
-
-            }
-
-
-        } else {
-            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+    /**
+     * 确定发票类型的名称
+     */
+    private String setfpname(String fpdm) {
+        String fpname = null;
+        if (Mytools.getfplx(fpdm).equals("10")) {
+            fpname = "增值税普通发票（电子)";
+        } else if (Mytools.getfplx(fpdm).equals("11")) {
+            fpname = "增值税普通发票（卷式)";
+        } else if (Mytools.getfplx(fpdm).equals("04")) {
+            fpname = "增值税普通发票";
+        } else if (Mytools.getfplx(fpdm).equals("03")) {
+            fpname = "机动车发票";
+        } else if (Mytools.getfplx(fpdm).equals("01")) {
+            fpname = "增值税专用发票";
+        } else if (Mytools.getfplx(fpdm).equals("02")) {
+            fpname = "货运运输业增值税专用发票";
         }
-        return false;
+        return fpname;
     }
 
     @Override
@@ -126,7 +135,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             switch (view.getId()) {
                 case R.id.tv_choujiang:
-                    if (!jyInfo.getData().getInvoiceCode().substring(0,3).equals("034")) {
+                    if (!jyInfo.getData().getInvoiceCode().substring(0, 3).equals("034")) {
                         Toast.makeText(context, "非安徽地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
                     } else {
 

@@ -152,19 +152,18 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tv_commit:
                 try {
-                    if (!et_yzm.getText().equals("")) {
-                        Toast.makeText(context, "验证码错误！", Toast.LENGTH_SHORT).show();
-
-                    } else if (!et_jym.getText().equals("")) {
-                        Toast.makeText(context, "校验码错误！", Toast.LENGTH_SHORT).show();
-                    } else if (!et_fphm.getText().equals("")) {
-                        Toast.makeText(context, "校验码错误", Toast.LENGTH_SHORT).show();
-
-                    } else if (!et_fpdm.getText().equals("")) {
+                    if (et_fpdm.getText().equals("")) {
                         Toast.makeText(context, "发票代码错误！", Toast.LENGTH_SHORT).show();
-
+                    } else if (et_fphm.getText().equals("")) {
+                        Toast.makeText(context, "发票号码错误！", Toast.LENGTH_SHORT).show();
                     } else if (tv_calendar.getText().equals("")) {
-                        Toast.makeText(context, "日期填写错误！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "发票日期错误", Toast.LENGTH_SHORT).show();
+
+                    } else if (et_jym.getText().equals("")) {
+                        Toast.makeText(context, "校验码错误！", Toast.LENGTH_SHORT).show();
+
+                    } else if (et_yzm.getText().equals("")) {
+                        Toast.makeText(context, "验证码错误！", Toast.LENGTH_SHORT).show();
 
                     } else {
                         requestData();
