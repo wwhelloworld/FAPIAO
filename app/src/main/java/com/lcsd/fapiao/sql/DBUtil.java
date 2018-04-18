@@ -50,6 +50,7 @@ public class DBUtil {
 
     }
 
+
     /**
      * 数据删除
      */
@@ -58,6 +59,21 @@ public class DBUtil {
         String where = "id = ?";
         String[] whereValue = {id};
         db.delete("CJHISTORY", where, whereValue);
+    }
+
+    /**
+     * 查询记录是否存在
+     *
+     * @param id 校验码 return true存在， false不存在
+     */
+    public boolean find(String id) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from CJHISTORY where id=?",
+                new String[]{id});
+        boolean result = cursor.moveToNext();
+        cursor.close();
+        db.close();
+        return result;
     }
 
     /**

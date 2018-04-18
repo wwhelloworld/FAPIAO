@@ -144,6 +144,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 case R.id.tv_choujiang:
                     if (!jyInfo.getData().getInvoiceCode().substring(0, 3).equals("034")) {
                         Toast.makeText(context, "非安徽地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
+                    } else if (mDBUtil.find(jyInfo.getData().getCheckCode())) {
+                        Toast.makeText(context, "该发票已参与抽奖！", Toast.LENGTH_SHORT).show();
+
                     } else {
 
                         //dialog宽高

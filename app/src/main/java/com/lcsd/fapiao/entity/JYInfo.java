@@ -398,7 +398,7 @@ public class JYInfo implements Serializable{
             this.invoiceCode = value;
         }
 
-        public String getInvoiceCode() {
+        public String   getInvoiceCode() {
             return this.invoiceCode;
         }
 
