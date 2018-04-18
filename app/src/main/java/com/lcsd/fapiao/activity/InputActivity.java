@@ -56,7 +56,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_input);
         context = this;
         initView();
-
     }
 
     private void initView() {
@@ -118,6 +117,11 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
+        if (getIntent().getExtras() != null) {
+            String result = getIntent().getStringExtra("result");
+            StringSplit(result);
+        }
     }
 
     @Override
@@ -259,7 +263,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             if (data != null) {
                 String result = data.getStringExtra(CaptureActivity.SCAN_QRCODE_RESULT);
                 TextView textView = findViewById(R.id.tv_content);
-                textView.setText(result);
+                //textView.setText(result);//打印一下二维码信息
                 StringSplit(result);
                 Log.d("获取的扫描返回值====", result);
 

@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:id="@+id/ll_detail_back"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center">
 
@@ -20,6 +20,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/img_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <TextView
@@ -34,7 +40,7 @@
 
         <TextView
             android:id="@+id/tv_choujiang"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="抽奖"
@@ -99,7 +105,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="真"
-                        android:textColor="@color/green" />
+                        android:textColor="@color/green"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout

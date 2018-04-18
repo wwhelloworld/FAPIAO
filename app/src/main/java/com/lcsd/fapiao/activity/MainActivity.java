@@ -1,17 +1,27 @@
 package com.lcsd.fapiao.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.zxing.activity.CaptureActivity;
 import com.lcsd.fapiao.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context;
     private LinearLayout ll_to_scan, ll_to_input, ll_to_chou, ll_to_dui;
+    private static final int CHECK_PERMISSION = 8002;
+    private final static int REQ_CODE = 1029;
     //抽奖弹窗
 
     @Override
@@ -39,14 +49,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_to_scan:
-
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                    startActivityForResult(new Intent(context, CaptureActivity.class), REQ_CODE);
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA, Manifest.permission.VIBRATE}, CHECK_PERMISSION);
+                }
                 break;
+
             case R.id.ll_to_input:
                 startActivity(new Intent(context, InputActivity.class));
                 break;
             case R.id.ll_to_chou:
                 startActivity(new Intent(context, CJHistory.class));
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE) {
+            if (data != null) {
+                String result = data.getStringExtra(CaptureActivity.SCAN_QRCODE_RESULT);
+                if (result != null) {
+                    startActivity(new Intent(context, InputActivity.class).putExtra("result", result));
+                }
+
+            }
         }
     }
 }

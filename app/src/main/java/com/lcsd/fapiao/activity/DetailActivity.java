@@ -47,6 +47,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initView() {
+        findViewById(R.id.ll_detail_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         jyInfo = (JYInfo) getIntent().getSerializableExtra("list");
         if (jyInfo != null) {
             Log.d("接受的集合====", jyInfo.toString());
@@ -95,7 +101,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tv_invoice_No.setText("发票号码\n" + jyInfo.getData().getInvoiceNo());
         //抽奖按钮
         tv_choujiang = findViewById(R.id.tv_choujiang);
-        //防止重复点击
 
         tv_choujiang.setOnClickListener(this);
         //获取数据库
@@ -110,18 +115,20 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
      */
     private String setfpname(String fpdm) {
         String fpname = null;
-        if (Mytools.getfplx(fpdm).equals("10")) {
-            fpname = "增值税普通发票（电子)";
-        } else if (Mytools.getfplx(fpdm).equals("11")) {
-            fpname = "增值税普通发票（卷式)";
-        } else if (Mytools.getfplx(fpdm).equals("04")) {
-            fpname = "增值税普通发票";
-        } else if (Mytools.getfplx(fpdm).equals("03")) {
-            fpname = "机动车发票";
-        } else if (Mytools.getfplx(fpdm).equals("01")) {
-            fpname = "增值税专用发票";
-        } else if (Mytools.getfplx(fpdm).equals("02")) {
-            fpname = "货运运输业增值税专用发票";
+        if (Mytools.getfplx(fpdm) != null) {
+            if (Mytools.getfplx(fpdm).equals("10")) {
+                fpname = "增值税普通发票（电子)";
+            } else if (Mytools.getfplx(fpdm).equals("11")) {
+                fpname = "增值税普通发票（卷式)";
+            } else if (Mytools.getfplx(fpdm).equals("04")) {
+                fpname = "增值税普通发票";
+            } else if (Mytools.getfplx(fpdm).equals("03")) {
+                fpname = "机动车发票";
+            } else if (Mytools.getfplx(fpdm).equals("01")) {
+                fpname = "增值税专用发票";
+            } else if (Mytools.getfplx(fpdm).equals("02")) {
+                fpname = "货运运输业增值税专用发票";
+            }
         }
         return fpname;
     }
@@ -204,15 +211,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                         historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
                         historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
                         historyContent.setFp_amount(jyInfo.getData().getInvoiceAmount());
-                /*if (historyContent.getFp_dm().contains(jyInfo.getData().getInvoiceCode())) {//如果含有这一项就删除再添加记录
-                    if (historyContent.getFp_no().contains(jyInfo.getData().getBlueInvoiceNo())) {
-                        return;
-                    } else {
-                        mDBUtil.Insert(historyContent);
-                    }
-                } else {
-                    mDBUtil.Insert(historyContent);
-                }*/
                         mDBUtil.Insert(historyContent);
                     }
 
@@ -221,44 +219,4 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-///**
-// * 校验发票代码
-// */
-//var fplx ='99';
-//function changeBhsjeJym(fpdm){
-//	if(fpdm.length==10 || fpdm.length==12){
-//		var reg=/^[0-9]*$/;
-//		if(!reg.test(fpdm)){
-//			$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-//			return false;
-//		}else{
-//			fplx = getFplx(fpdm);
-//			if(fplx == '01' || fplx == '02' || fplx == '03'){
-//				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
-//				if(bhsjejymFlag!=1){
-//					$('#bhsjejymform label').text("不含税价");
-//					$('#bhsjejymform input').attr("placeholder","请输入不含税金额").attr("name","bhsje").attr("maxlength","30").val("");
-//					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
-//				}
-//				bhsjejymFlag = 1;
-//				return true;
-//			}else if(fplx == '04' || fplx == '10' || fplx == '11'){
-//				$("#fpdm_id").parent().parent().removeClass("inputError").addClass("inputSuccess");
-//				if(bhsjejymFlag!=0){
-//					$('#bhsjejymform label').text("校 验 码").addClass("letterSpacing1");
-//					$('#bhsjejymform input').attr("placeholder","请输入校验码后六位").attr("name","skm").attr("maxlength","6").val("");
-//					$("#bhsje_id").parent().parent().removeClass("inputSuccess").removeClass("inputError");
-//				}
-//				bhsjejymFlag = 0;
-//				return true;
-//			}else{
-//				$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-//				return false;
-//			}
-//		}
-//	}else{
-//		$("#fpdm_id").parent().parent().removeClass("inputSuccess").addClass("inputError");
-//		return false;
-//	}
-//}
 }

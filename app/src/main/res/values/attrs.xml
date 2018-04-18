@@ -26,4 +26,5 @@
         <!--文字颜色-->
         <attr name="textColor" format="reference|color"/>
     </declare-styleable>
+
 </resources>
