@@ -41,7 +41,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     private Context context;
     private ImageView iv_code, iv_rili, iv_scan, iv_check_code;
     private TextView tv_commit, tv_calendar;
-    private EditText et_yzm, et_fpdm, et_fphm, et_jym;
+    private EditText et_yzm, et_fpdm, et_fphm, et_jym, et_fp_amount;
     private static final int CHECK_PERMISSION = 8001;
     private final static int REQ_CODE = 1028;
     private CalendarDialog calendarDialog;
@@ -86,8 +86,51 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         tv_commit.setOnClickListener(this);
         //发票代码输入框
         et_fpdm = findViewById(R.id.et_fpdm);
+        et_fpdm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 12 || editable.length() == 10) {
+                    //输入后判断的发票类型
+                    String type1 = Mytools.getfplx(editable.toString());
+                    if (type1 != null) {
+                        if (type1.equals("01") || type1.equals("02") || type1.equals("03")) {
+                            findViewById(R.id.ll_jym).setVisibility(View.GONE);
+                            findViewById(R.id.ll_fpje).setVisibility(View.VISIBLE);
+
+                        } else if (type1.equals("04") || type1.equals("10") || type1.equals("11")) {
+                            findViewById(R.id.ll_fpje).setVisibility(View.GONE);
+                            findViewById(R.id.ll_jym).setVisibility(View.VISIBLE);
+
+                        } else {
+                            findViewById(R.id.ll_fpje).setVisibility(View.VISIBLE);
+                            findViewById(R.id.ll_jym).setVisibility(View.GONE);
+                        }
+                    } else {
+                        findViewById(R.id.ll_fpje).setVisibility(View.GONE);
+                        findViewById(R.id.ll_jym).setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    return;
+                }
+            }
+        });
+
+
         //发票号码输入框
         et_fphm = findViewById(R.id.et_fphm);
+        //发票金额输入框
+        et_fp_amount = findViewById(R.id.et_fp_amount);
         //发票校验码
         et_jym = findViewById(R.id.et_jym);
         //验证码输入框
@@ -214,19 +257,39 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     //请求校验发票数据
     private void requestData() throws IOException {
         Map<String, String> map = new HashMap<>();
-        map.put("invoiceType", type);//类型
+        if (getIntent().getExtras() != null) {
+            map.put("invoiceType", type);//类型
+            if (type.equals("01") || type.equals("02") || type.equals("03")) {
+                map.put("invoiceAmount", et_fp_amount.getText().toString());//发票金额
+            } else if (type == "04" || type.equals("10") || type.equals("11")) {
+                map.put("checkCode", et_jym.getText().toString());//校验码
+            }
+        } else {
+            //输入后判断的发票类型
+            String type1 = Mytools.getfplx(et_fpdm.getText().toString());
+            map.put("invoiceType", type1);//类型
+            map.put("invoiceAmount", et_fp_amount.getText().toString());//发票金额
+
+            if (type1.equals("01") || type1.equals("02") || type1.equals("03")) {
+                map.put("invoiceAmount", et_fp_amount.getText().toString());//发票金额
+            } else if (type1.equals("04") || type1.equals("10") || type1.equals("11")) {
+                map.put("checkCode", et_jym.getText().toString());//校验码
+            } else {
+                map.put("invoiceAmount", et_fp_amount.getText().toString());//发票金额
+            }
+        }
         map.put("invoiceCode", et_fpdm.getText().toString());//发票代码
         map.put("invoiceNo", et_fphm.getText().toString());//发票号码
-        map.put("invoiceDate", tv_calendar.getText().toString());//发票日期Î
-        map.put("invoiceAmount", "");//发票金额
-        map.put("checkCode", et_jym.getText().toString());//校验码
+        map.put("invoiceDate", tv_calendar.getText().toString());//发票日期
+
+
         map.put("validCode", et_yzm.getText().toString());//验证码
         String requestJson = JacksonUtils.getJsonFromMap(map);
         MyApplication.getInstance().getMyOkHttp().post().url(check_url).jsonParams(requestJson).enqueue(new RawResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
                 if (response != null) {
-                    Log.d("返回的校验数据====", response);
+                    Log.d("返回的校验数据====", response + "这个值");
                     JYInfo info = JSON.parseObject(response, JYInfo.class);
                     if (info.getMsg().equals("success")) {
                         Toast.makeText(context, info.getData().getResultTip(), Toast.LENGTH_SHORT).show();
@@ -237,8 +300,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                         intent.setClass(context, DetailActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(context, info.getMsg(), Toast.LENGTH_SHORT).show();
                     }
-
 
                 }
             }

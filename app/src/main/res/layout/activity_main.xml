@@ -57,8 +57,8 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text=" 扫描"
-            android:textSize="15sp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="50dp"
@@ -66,10 +66,11 @@
             android:padding="15dp"
             android:src="@drawable/img_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.4dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 
     <LinearLayout
         android:id="@+id/ll_to_input"
@@ -90,9 +91,9 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textSize="15sp"
             android:text="手动输入"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="50dp"
@@ -100,10 +101,12 @@
             android:padding="15dp"
             android:src="@drawable/img_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.4dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
+
     <LinearLayout
         android:id="@+id/ll_to_chou"
         android:layout_width="match_parent"
@@ -123,9 +126,9 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textSize="15sp"
             android:text="抽奖记录"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="50dp"
@@ -133,16 +136,19 @@
             android:padding="15dp"
             android:src="@drawable/img_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.4dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
+
     <LinearLayout
         android:id="@+id/ll_to_dui"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="50dp"
@@ -156,19 +162,33 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textSize="15sp"
             android:text="获奖记录"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:padding="15dp"
             android:src="@drawable/img_right" />
+
     </LinearLayout>
-    <View
+
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="0.4dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="仅供内部测试"
+         />
 
 </LinearLayout>

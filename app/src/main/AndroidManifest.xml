@@ -38,7 +38,13 @@
         <activity
             android:name=".activity.CJHistory"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.InformationActivity"></activity>
+        <activity
+            android:name=".activity.InformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.google.zxing.activity.CaptureActivity"
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

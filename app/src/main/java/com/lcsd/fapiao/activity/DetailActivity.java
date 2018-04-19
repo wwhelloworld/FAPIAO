@@ -3,6 +3,7 @@ package com.lcsd.fapiao.activity;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -115,22 +116,46 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
      */
     private String setfpname(String fpdm) {
         String fpname = null;
+        String fp_province = checkprovince(fpdm);
         if (Mytools.getfplx(fpdm) != null) {
             if (Mytools.getfplx(fpdm).equals("10")) {
-                fpname = "增值税普通发票（电子)";
+                fpname = fp_province + "增值税普通发票（电子)";
             } else if (Mytools.getfplx(fpdm).equals("11")) {
-                fpname = "增值税普通发票（卷式)";
+                fpname = fp_province + "增值税普通发票（卷式)";
             } else if (Mytools.getfplx(fpdm).equals("04")) {
-                fpname = "增值税普通发票";
+                fpname = fp_province + "增值税普通发票";
             } else if (Mytools.getfplx(fpdm).equals("03")) {
-                fpname = "机动车发票";
+                fpname = fp_province + "机动车发票";
             } else if (Mytools.getfplx(fpdm).equals("01")) {
-                fpname = "增值税专用发票";
+                fpname = fp_province + "增值税专用发票";
             } else if (Mytools.getfplx(fpdm).equals("02")) {
-                fpname = "货运运输业增值税专用发票";
+                fpname = fp_province + "货运运输业增值税专用发票";
             }
         }
         return fpname;
+    }
+
+    /**
+     * 发票省份确定
+     */
+    private String checkprovince(String str) {
+        String str_sub = null;
+        if (str.length() == 12) {
+            str_sub = str.substring(1, 3);
+
+        } else if (str.length() == 10) {
+            str_sub = str.substring(0, 2);
+
+        }
+        String[] names = getResources().getStringArray(R.array.provincecode);
+        String[] values = getResources().getStringArray(R.array.provincename);
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].equals(str_sub)) {
+                Log.d("返回的省份===", values[i]);
+                return values[i];
+            }
+        }
+        return null;
     }
 
     @Override
