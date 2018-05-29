@@ -1,18 +1,12 @@
 package com.lcsd.fapiao.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lcsd.fapiao.R;
-import com.lcsd.fapiao.utils.Logger;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.SimpleDateFormat;
