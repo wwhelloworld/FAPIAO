@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'lcsd'
+            keyPassword '123456'
+            storeFile file('/Users/wei/Desktop/my_app/FAPIAO/app/src/jks/Untitled')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.lcsd.fapiao"

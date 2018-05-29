@@ -53,8 +53,8 @@ public class CJHistory_adapter extends BaseAdapter {
             holder = (CJHistoryHolder) view.getTag();
         }
         if (list.size() > 0) {
-            holder.tv_01.setText("发票代码："+list.get(i).getFp_dm());
-            holder.tv_02.setText("发票号码："+list.get(i).getFp_no());
+            holder.tv_01.setText(list.get(i).getFp_dm());
+            holder.tv_02.setText(list.get(i).getFp_no());
             holder.tv_03.setText(Mytools.strToDateFormat(list.get(i).getFp_date().toString().trim()));
             holder.tv_04.setText("￥"+list.get(i).getFp_amount());
         }

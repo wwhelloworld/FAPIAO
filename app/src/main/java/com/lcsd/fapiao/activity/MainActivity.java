@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_to_chou:
                 startActivity(new Intent(context, CJHistory.class));
                 break;
+            case R.id.ll_to_dui:
+                startActivity(new Intent(context, InformationActivity.class));
+                break;
         }
     }
 

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.lcsd.fapiao.R;
@@ -22,6 +23,7 @@ public class CJHistory extends AppCompatActivity {
     private ListView listView; //显示查询结果
     private List<HistoryContent> list = null;
     private CJHistory_adapter adapter;
+    private LinearLayout ll_history_none;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class CJHistory extends AppCompatActivity {
                 finish();
             }
         });
+        ll_history_none = findViewById(R.id.ll_history_none);
         //获取数据库
         mUtil = new DBUtil(context);
         list = new ArrayList<>();
@@ -47,6 +50,12 @@ public class CJHistory extends AppCompatActivity {
         adapter = new CJHistory_adapter(context, list);
         listView.setAdapter(adapter);
         //Log.d("取得的日期=====",list.get(0).getFp_data()+list.get(0).getFp_dm());
+        if (list != null && list.size() > 0) {
+            ll_history_none.setVisibility(View.GONE);
+        } else {
+            ll_history_none.setVisibility(View.VISIBLE);
+        }
+
 
     }
 }

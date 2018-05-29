@@ -148,7 +148,8 @@
         android:layout_height="50dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
         <ImageView
             android:layout_width="50dp"

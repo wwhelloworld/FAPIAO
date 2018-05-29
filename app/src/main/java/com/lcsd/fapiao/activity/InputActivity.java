@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener {
+    public static InputActivity inputActivity;
     private Context context;
     private ImageView iv_code, iv_rili, iv_scan, iv_check_code;
     private TextView tv_commit, tv_calendar;
@@ -54,6 +55,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+        inputActivity = this;
         context = this;
         initView();
     }
@@ -192,6 +194,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 String code_url = "https://www.51fapiao.cn:8060/webServer/gencode?tmp=" + tmp;
                 Glide.with(context).load(code_url).into(iv_code);
                 Log.d("图片地址====", code_url);
+                if (et_yzm.getText().toString() != null) {
+                    et_yzm.getText().clear();
+                }
                 break;
             case R.id.iv_rili:
                 calendarDialog.show();
@@ -199,14 +204,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tv_commit:
                 try {
-                    if (et_fpdm.getText().equals("")) {
+                    if (et_fpdm.getText().toString().equals("")) {
                         Toast.makeText(context, "发票代码错误！", Toast.LENGTH_SHORT).show();
-                    } else if (et_fphm.getText().equals("")) {
+                    } else if (et_fphm.getText().toString().equals("")) {
                         Toast.makeText(context, "发票号码错误！", Toast.LENGTH_SHORT).show();
-                    } else if (tv_calendar.getText().equals("")) {
+                    } else if (tv_calendar.getText().toString().equals("")) {
                         Toast.makeText(context, "发票日期错误", Toast.LENGTH_SHORT).show();
 
-                    } else if (et_jym.getText().equals("")) {
+                    } else if (et_jym.getText().toString().equals("")) {
                         Toast.makeText(context, "校验码错误！", Toast.LENGTH_SHORT).show();
 
                     } else if (et_yzm.getText().equals("")) {
@@ -322,6 +327,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         et_fphm.getText().clear();
         et_jym.getText().clear();
         et_yzm.getText().clear();
+        iv_code.setBackgroundResource(R.drawable.code);
         tv_calendar.setText("");
         if (requestCode == REQ_CODE) {
             if (data != null) {

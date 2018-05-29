@@ -27,6 +27,7 @@ import com.lcsd.fapiao.view.WheelSurfView;
 import java.util.Random;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
+    public static DetailActivity detailActivity;
     private Context context;
     private JYInfo jyInfo;
     private TextView tv_buyer_name, tv_buyer_TaxNo, tv_buyer_AddressPhone, tv_buyer_Account, tv_saler_Name,
@@ -42,6 +43,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        detailActivity = this;
         context = this;
         initView();
 
@@ -93,6 +95,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tv_goods_Name.setText(jyInfo.getData().getDetailList().get(0).getGoodsName());
         //开票日期
         tv_invoice_Date = findViewById(R.id.tv_invoice_Date);
+
         tv_invoice_Date.setText("开票日期\n" + Mytools.strToDateFormat(jyInfo.getData().getInvoiceDate()));
         //发票代码
         tv_invoice_Code = findViewById(R.id.tv_invoice_Code);
@@ -167,8 +170,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             switch (view.getId()) {
                 case R.id.tv_choujiang:
-                    if (!jyInfo.getData().getInvoiceCode().substring(0, 3).equals("034")) {
-                        Toast.makeText(context, "非安徽地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
+                    if (!jyInfo.getData().getInvoiceCode().substring(0, 3).equals("042")) {
+                        Toast.makeText(context, "非湖北地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
                     } else if (mDBUtil.find(jyInfo.getData().getCheckCode())) {
                         Toast.makeText(context, "该发票已参与抽奖！", Toast.LENGTH_SHORT).show();
 
@@ -203,7 +206,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void rotateEnd(int position, String des) {
                                 //获得结果取消点击监听
-                                iv_cancle.setVisibility(View.VISIBLE);
+                                //iv_cancle.setVisibility(View.VISIBLE);
                                 wheelSurfView.setRotateListener(null);
                                 tv_input.setBackgroundResource(R.drawable.content_commit);
                                 tv_input.setClickable(true);
@@ -229,17 +232,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                                 int position = new Random().nextInt(7) + 1;
                                 wheelSurfView.startRotate(position);
                                 tv_input.setClickable(false);
+                                //插入数据
+                                historyContent.setFp_jym(jyInfo.getData().getCheckCode());
+                                historyContent.setFp_dm(jyInfo.getData().getInvoiceCode());
+                                historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
+                                historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
+                                historyContent.setFp_amount(jyInfo.getData().getTotalAmount());//
+                                mDBUtil.Insert(historyContent);
 
                             }
                         });
 
-                        //插入数据
-                        historyContent.setFp_jym(jyInfo.getData().getCheckCode());
-                        historyContent.setFp_dm(jyInfo.getData().getInvoiceCode());
-                        historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
-                        historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
-                        historyContent.setFp_amount(jyInfo.getData().getInvoiceAmount());
-                        mDBUtil.Insert(historyContent);
+
                     }
 
                     break;

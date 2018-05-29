@@ -61,6 +61,7 @@
             android:background="@color/white"
             android:hint="请输入发票代码"
             android:inputType="number"
+            android:maxLength="12"
             android:paddingLeft="5dp"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -101,12 +102,11 @@
             android:background="@color/white"
             android:hint="请输入发票号码"
             android:inputType="number"
+            android:maxLength="8"
             android:paddingLeft="5dp"
             android:textColor="@color/black"
             android:textSize="15sp" />
     </LinearLayout>
-
-
 
 
     <View
@@ -152,8 +152,8 @@
         android:id="@+id/ll_fpje"
         android:layout_width="match_parent"
         android:layout_height="50.5dp"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -181,13 +181,13 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:hint="请输入发票金额"
-                android:inputType="number"
                 android:paddingLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_jym"
         android:layout_width="match_parent"
@@ -221,6 +221,7 @@
                 android:background="@color/white"
                 android:hint="请输入校验码"
                 android:inputType="number"
+                android:maxLength="6"
                 android:paddingLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -253,6 +254,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:hint="请输入验证码 "
+            android:maxLength="4"
             android:paddingLeft="5dp"
             android:textColor="@color/black"
             android:textSize="15sp" />
