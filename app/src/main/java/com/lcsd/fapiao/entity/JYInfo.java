@@ -9,436 +9,279 @@ import java.util.List;
  * @author www.json123.com
  *
  */
-public class JYInfo implements Serializable{
+public class JYInfo implements Serializable {
 
-    public static class TData implements Serializable{
+    public static class TJsonMap implements Serializable{
 
-        public static class TDetailList implements Serializable{
+        public static class TFPMX_LIST implements Serializable{
 
-            private String unit;	/**/
-            private String taxUnitPrice;	/**/
-            private String taxAmount;	/*0.00*/
-            private String num;	/*1*/
-            private String taxRate;	/*0%*/
-            private String specificationModel;	/**/
-            private String taxDetailAmount;	/**/
-            private String detailAmount;	/*133.00*/
-            private String unitPrice;	/*133*/
-            private String detailNo;	/*1*/
-            private String goodsName;
+            private	String	xMDJ;	/*133*/
+            private	String	sE;	/*0*/
+            private	String	xMMC;	/**电信服务*通信服务费*/
+            private	String	xMJE;	/*133*/
+            private	String	gGXH;	/* */
+            private	String	sL;	/*0*/
+            private	String	xMSL;	/*1*/
+            private	String	dW;	/* */
 
-            /**
-             * 电信服务*通信服务费
-             */
-
-            public void setUnit(String value) {
-                this.unit = value;
+            public void setXMDJ(String value){
+                this.xMDJ = value;
+            }
+            public String getXMDJ(){
+                return this.xMDJ;
             }
 
-            public String getUnit() {
-                return this.unit;
+            public void setSE(String value){
+                this.sE = value;
+            }
+            public String getSE(){
+                return this.sE;
             }
 
-            public void setTaxUnitPrice(String value) {
-                this.taxUnitPrice = value;
+            public void setXMMC(String value){
+                this.xMMC = value;
+            }
+            public String getXMMC(){
+                return this.xMMC;
             }
 
-            public String getTaxUnitPrice() {
-                return this.taxUnitPrice;
+            public void setXMJE(String value){
+                this.xMJE = value;
+            }
+            public String getXMJE(){
+                return this.xMJE;
             }
 
-            public void setTaxAmount(String value) {
-                this.taxAmount = value;
+            public void setGGXH(String value){
+                this.gGXH = value;
+            }
+            public String getGGXH(){
+                return this.gGXH;
             }
 
-            public String getTaxAmount() {
-                return this.taxAmount;
+            public void setSL(String value){
+                this.sL = value;
+            }
+            public String getSL(){
+                return this.sL;
             }
 
-            public void setNum(String value) {
-                this.num = value;
+            public void setXMSL(String value){
+                this.xMSL = value;
+            }
+            public String getXMSL(){
+                return this.xMSL;
             }
 
-            public String getNum() {
-                return this.num;
+            public void setDW(String value){
+                this.dW = value;
             }
-
-            public void setTaxRate(String value) {
-                this.taxRate = value;
-            }
-
-            public String getTaxRate() {
-                return this.taxRate;
-            }
-
-            public void setSpecificationModel(String value) {
-                this.specificationModel = value;
-            }
-
-            public String getSpecificationModel() {
-                return this.specificationModel;
-            }
-
-            public void setTaxDetailAmount(String value) {
-                this.taxDetailAmount = value;
-            }
-
-            public String getTaxDetailAmount() {
-                return this.taxDetailAmount;
-            }
-
-            public void setDetailAmount(String value) {
-                this.detailAmount = value;
-            }
-
-            public String getDetailAmount() {
-                return this.detailAmount;
-            }
-
-            public void setUnitPrice(String value) {
-                this.unitPrice = value;
-            }
-
-            public String getUnitPrice() {
-                return this.unitPrice;
-            }
-
-            public void setDetailNo(String value) {
-                this.detailNo = value;
-            }
-
-            public String getDetailNo() {
-                return this.detailNo;
-            }
-
-            public void setGoodsName(String value) {
-                this.goodsName = value;
-            }
-
-            public String getGoodsName() {
-                return this.goodsName;
+            public String getDW(){
+                return this.dW;
             }
 
         }
-
-        private List<TDetailList> detailList;	/*List<TDetailList>*/
-
-        public void setDetailList(List<TDetailList> value) {
-            this.detailList = value;
+        private	List<TFPMX_LIST>	fPMX_LIST;	/*List<TFPMX_LIST>*/
+        public void setFPMX_LIST(List<TFPMX_LIST> value){
+            this.fPMX_LIST = value;
+        }
+        public List<TFPMX_LIST> getFPMX_LIST(){
+            return this.fPMX_LIST;
         }
 
-        public List<TDetailList> getDetailList() {
-            return this.detailList;
+        private	String	jYM;	/*70601045633567375498*/
+        private	String	gMF_MC;	/*合肥福斯特科技有限公司*/
+        private	String	xSF_DZDH;	/*合肥市长江西路99号10086*/
+        private	String	xSF_NSRSBH;	/*913401007430785973*/
+        private	String	xSF_YHZH;	/*中国光大银行合肥分行营业部 087669120100304073427*/
+        private	String	fP_HM;	/*21628850*/
+        private	String	codeMsg;	/*查验发票信息成功!*/
+        private	String	jSHJ_ZWDX;	/*壹佰零叁圆柒角零分整*/
+        private	String	fP_DM;	/*034011700111*/
+        private	String	jSHJ;	/*103.7*/
+        private	String	gMF_DZDH;	/*合肥高新区大学科技园A-302、304室 0551-65319088*/
+        private	String	code;	/*0000*/
+        private	String	xSF_MC;	/*中国移动通信集团安徽有限公司合肥分公司*/
+        private	String	bZ;	/*15956509143 当前可用余额：102.53 本次费用结算时间为: 2018年02月01日至2018年02月28日*/
+        private	String	gMF_NSRSBH;	/*91340100760833953C*/
+        private	String	kPRQ;	/*20180304*/
+        private	String	hJJE;	/*103.7*/
+        private	String	jQBH;	/*661616299504*/
+        private	String	fP_AREA;	/*安徽*/
+        private	String	kPRQ_CHANGE;	/*2018年03月04日*/
+        private	String	fP_TYPE;	/*增值税电子普通发票*/
+        private	String	hJSE;	/*0*/
+        private	String	gMF_YHZH;	/*建设银行合肥高新支行 34050147860500000132*/
+
+        public void setJYM(String value){
+            this.jYM = value;
+        }
+        public String getJYM(){
+            return this.jYM;
         }
 
-        private String invoiceDate;	/*20180304*/
-        private String salerAddressPhone;	/*合肥市长江西路99号10086*/
-        private String remark;	/*15956509143 当前可用余额：102.53 本次费用结算时间为: 2018年02月01日至2018年02月28日*/
-        private String invoiceAmount;	/*103.70*/
-        private Object ewmPath;	/*Object*/
-        private String cancellationMark;	/*N*/
-        private String invoiceNo;	/*21628850*/
-        private String drawer;	/**/
-        private String checkCount;	/*3*/
-        private String blueInvoiceNo;	/**/
-        private Object cxKey;	/*Object*/
-        private String salerTaxNo;	/*913401007430785973*/
-        private String resultCode;	/*0001*/
-        private String totalAmount;	/*103.70*/
-        private String buyerAddressPhone;	/*合肥高新区大学科技园A-302、304室 0551-65319088*/
-        private String reviewer;	/**/
-        private String salerName;	/*中国移动通信集团安徽有限公司合肥分公司*/
-        private String buyerAccount;	/*建设银行合肥高新支行 34050147860500000132*/
-        private Boolean lpflag;	/*false*/
-        private String buyerTaxNo;	/*91340100760833953C*/
-        private String checkCode;	/*70601045633567375498*/
-        private String machineNo;	/*661616299504*/
-        private String blueInvoiceCode;	/**/
-        private String invoiceType;	/*10*/
-        private String payee;	/**/
-        private String resultTip;	/*查验成功发票一致*/
-        private String salerAccount;	/*中国光大银行合肥分行营业部 087669120100304073427*/
-        private String buyerName;	/*合肥福斯特科技有限公司*/
-        private String taxAmount;	/*0.00*/
-        private String invoiceCode;	/*034011700111*/
-
-        public void setInvoiceDate(String value) {
-            this.invoiceDate = value;
+        public void setGMF_MC(String value){
+            this.gMF_MC = value;
+        }
+        public String getGMF_MC(){
+            return this.gMF_MC;
         }
 
-        public String getInvoiceDate() {
-            return this.invoiceDate;
+        public void setXSF_DZDH(String value){
+            this.xSF_DZDH = value;
+        }
+        public String getXSF_DZDH(){
+            return this.xSF_DZDH;
         }
 
-        public void setSalerAddressPhone(String value) {
-            this.salerAddressPhone = value;
+        public void setXSF_NSRSBH(String value){
+            this.xSF_NSRSBH = value;
+        }
+        public String getXSF_NSRSBH(){
+            return this.xSF_NSRSBH;
         }
 
-        public String getSalerAddressPhone() {
-            return this.salerAddressPhone;
+        public void setXSF_YHZH(String value){
+            this.xSF_YHZH = value;
+        }
+        public String getXSF_YHZH(){
+            return this.xSF_YHZH;
         }
 
-        public void setRemark(String value) {
-            this.remark = value;
+        public void setFP_HM(String value){
+            this.fP_HM = value;
+        }
+        public String getFP_HM(){
+            return this.fP_HM;
         }
 
-        public String getRemark() {
-            return this.remark;
+        public void setCodeMsg(String value){
+            this.codeMsg = value;
+        }
+        public String getCodeMsg(){
+            return this.codeMsg;
         }
 
-        public void setInvoiceAmount(String value) {
-            this.invoiceAmount = value;
+        public void setJSHJ_ZWDX(String value){
+            this.jSHJ_ZWDX = value;
+        }
+        public String getJSHJ_ZWDX(){
+            return this.jSHJ_ZWDX;
         }
 
-        public String getInvoiceAmount() {
-            return this.invoiceAmount;
+        public void setFP_DM(String value){
+            this.fP_DM = value;
+        }
+        public String getFP_DM(){
+            return this.fP_DM;
         }
 
-        public void setEwmPath(Object value) {
-            this.ewmPath = value;
+        public void setJSHJ(String value){
+            this.jSHJ = value;
+        }
+        public String getJSHJ(){
+            return this.jSHJ;
         }
 
-        public Object getEwmPath() {
-            return this.ewmPath;
+        public void setGMF_DZDH(String value){
+            this.gMF_DZDH = value;
+        }
+        public String getGMF_DZDH(){
+            return this.gMF_DZDH;
         }
 
-        public void setCancellationMark(String value) {
-            this.cancellationMark = value;
+        public void setCode(String value){
+            this.code = value;
+        }
+        public String getCode(){
+            return this.code;
         }
 
-        public String getCancellationMark() {
-            return this.cancellationMark;
+        public void setXSF_MC(String value){
+            this.xSF_MC = value;
+        }
+        public String getXSF_MC(){
+            return this.xSF_MC;
         }
 
-        public void setInvoiceNo(String value) {
-            this.invoiceNo = value;
+        public void setBZ(String value){
+            this.bZ = value;
+        }
+        public String getBZ(){
+            return this.bZ;
         }
 
-        public String getInvoiceNo() {
-            return this.invoiceNo;
+        public void setGMF_NSRSBH(String value){
+            this.gMF_NSRSBH = value;
+        }
+        public String getGMF_NSRSBH(){
+            return this.gMF_NSRSBH;
         }
 
-        public void setDrawer(String value) {
-            this.drawer = value;
+        public void setKPRQ(String value){
+            this.kPRQ = value;
+        }
+        public String getKPRQ(){
+            return this.kPRQ;
         }
 
-        public String getDrawer() {
-            return this.drawer;
+        public void setHJJE(String value){
+            this.hJJE = value;
+        }
+        public String getHJJE(){
+            return this.hJJE;
         }
 
-        public void setCheckCount(String value) {
-            this.checkCount = value;
+        public void setJQBH(String value){
+            this.jQBH = value;
+        }
+        public String getJQBH(){
+            return this.jQBH;
         }
 
-        public String getCheckCount() {
-            return this.checkCount;
+        public void setFP_AREA(String value){
+            this.fP_AREA = value;
+        }
+        public String getFP_AREA(){
+            return this.fP_AREA;
         }
 
-        public void setBlueInvoiceNo(String value) {
-            this.blueInvoiceNo = value;
+        public void setKPRQ_CHANGE(String value){
+            this.kPRQ_CHANGE = value;
+        }
+        public String getKPRQ_CHANGE(){
+            return this.kPRQ_CHANGE;
         }
 
-        public String getBlueInvoiceNo() {
-            return this.blueInvoiceNo;
+        public void setFP_TYPE(String value){
+            this.fP_TYPE = value;
+        }
+        public String getFP_TYPE(){
+            return this.fP_TYPE;
         }
 
-        public void setCxKey(Object value) {
-            this.cxKey = value;
+        public void setHJSE(String value){
+            this.hJSE = value;
+        }
+        public String getHJSE(){
+            return this.hJSE;
         }
 
-        public Object getCxKey() {
-            return this.cxKey;
+        public void setGMF_YHZH(String value){
+            this.gMF_YHZH = value;
         }
-
-        public void setSalerTaxNo(String value) {
-            this.salerTaxNo = value;
-        }
-
-        public String getSalerTaxNo() {
-            return this.salerTaxNo;
-        }
-
-        public void setResultCode(String value) {
-            this.resultCode = value;
-        }
-
-        public String getResultCode() {
-            return this.resultCode;
-        }
-
-        public void setTotalAmount(String value) {
-            this.totalAmount = value;
-        }
-
-        public String getTotalAmount() {
-            return this.totalAmount;
-        }
-
-        public void setBuyerAddressPhone(String value) {
-            this.buyerAddressPhone = value;
-        }
-
-        public String getBuyerAddressPhone() {
-            return this.buyerAddressPhone;
-        }
-
-        public void setReviewer(String value) {
-            this.reviewer = value;
-        }
-
-        public String getReviewer() {
-            return this.reviewer;
-        }
-
-        public void setSalerName(String value) {
-            this.salerName = value;
-        }
-
-        public String getSalerName() {
-            return this.salerName;
-        }
-
-        public void setBuyerAccount(String value) {
-            this.buyerAccount = value;
-        }
-
-        public String getBuyerAccount() {
-            return this.buyerAccount;
-        }
-
-        public void setLpflag(Boolean value) {
-            this.lpflag = value;
-        }
-
-        public Boolean getLpflag() {
-            return this.lpflag;
-        }
-
-        public void setBuyerTaxNo(String value) {
-            this.buyerTaxNo = value;
-        }
-
-        public String getBuyerTaxNo() {
-            return this.buyerTaxNo;
-        }
-
-        public void setCheckCode(String value) {
-            this.checkCode = value;
-        }
-
-        public String getCheckCode() {
-            return this.checkCode;
-        }
-
-        public void setMachineNo(String value) {
-            this.machineNo = value;
-        }
-
-        public String getMachineNo() {
-            return this.machineNo;
-        }
-
-        public void setBlueInvoiceCode(String value) {
-            this.blueInvoiceCode = value;
-        }
-
-        public String getBlueInvoiceCode() {
-            return this.blueInvoiceCode;
-        }
-
-        public void setInvoiceType(String value) {
-            this.invoiceType = value;
-        }
-
-        public String getInvoiceType() {
-            return this.invoiceType;
-        }
-
-        public void setPayee(String value) {
-            this.payee = value;
-        }
-
-        public String getPayee() {
-            return this.payee;
-        }
-
-        public void setResultTip(String value) {
-            this.resultTip = value;
-        }
-
-        public String getResultTip() {
-            return this.resultTip;
-        }
-
-        public void setSalerAccount(String value) {
-            this.salerAccount = value;
-        }
-
-        public String getSalerAccount() {
-            return this.salerAccount;
-        }
-
-        public void setBuyerName(String value) {
-            this.buyerName = value;
-        }
-
-        public String getBuyerName() {
-            return this.buyerName;
-        }
-
-        public void setTaxAmount(String value) {
-            this.taxAmount = value;
-        }
-
-        public String getTaxAmount() {
-            return this.taxAmount;
-        }
-
-        public void setInvoiceCode(String value) {
-            this.invoiceCode = value;
-        }
-
-        public String   getInvoiceCode() {
-            return this.invoiceCode;
+        public String getGMF_YHZH(){
+            return this.gMF_YHZH;
         }
 
     }
+    private	TJsonMap	jsonMap;	/*TJsonMap*/
 
-    private String errCode;	/**/
-    private TData data;	/*TData*/
-    private Integer code;	/*0*/
-    private String msg;	/*success*/
-
-    public void setErrCode(String value) {
-        this.errCode = value;
+    public void setJsonMap(TJsonMap value){
+        this.jsonMap = value;
     }
-
-    public String getErrCode() {
-        return this.errCode;
-    }
-
-    public void setData(TData value) {
-        this.data = value;
-    }
-
-    public TData getData() {
-        return this.data;
-    }
-
-    public void setCode(Integer value) {
-        this.code = value;
-    }
-
-    public Integer getCode() {
-        return this.code;
-    }
-
-    public void setMsg(String value) {
-        this.msg = value;
-    }
-
-    public String getMsg() {
-        return this.msg;
+    public TJsonMap getJsonMap(){
+        return this.jsonMap;
     }
 
 }

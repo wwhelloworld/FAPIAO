@@ -41,6 +41,7 @@ public class MyApplication extends Application {
                  .connectTimeout(30, TimeUnit.MINUTES)
                 .writeTimeout(30, TimeUnit.MINUTES)
                 .readTimeout(30, TimeUnit.MINUTES)
+                .sslSocketFactory(HttpUtils.createSSLSocketFactory())
                 .cookieJar(cookieJar)
                 .build();
         new Thread(new Runnable() {

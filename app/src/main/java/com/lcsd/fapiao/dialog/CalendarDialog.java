@@ -65,7 +65,7 @@ public class CalendarDialog extends Dialog implements View.OnClickListener {
 
     public void SetDate() {
         long time = calendar.getSelectedDate().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String result = format.format(time);
         Log.i("选择日期是====", result + time);
         tv_calendar.setText(result);

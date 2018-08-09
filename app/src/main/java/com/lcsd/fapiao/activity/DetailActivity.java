@@ -62,47 +62,52 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
         //发票类型名字
         tv_invoice_name = findViewById(R.id.tv_invoice_name);
-        tv_invoice_name.setText(setfpname(jyInfo.getData().getInvoiceCode()));
+//        tv_invoice_name.setText(setfpname(jyInfo.getData().getFP_TYPE()));
+        tv_invoice_name.setText(jyInfo.getJsonMap().getFP_TYPE());
         //购买方
         tv_buyer_name = findViewById(R.id.tv_buyer_name);
-        tv_buyer_name.setText(jyInfo.getData().getBuyerName());
+        tv_buyer_name.setText(jyInfo.getJsonMap().getGMF_MC());
         //税号
         tv_buyer_TaxNo = findViewById(R.id.tv_buyer_TaxNo);
-        tv_buyer_TaxNo.setText(jyInfo.getData().getBuyerTaxNo());
+        tv_buyer_TaxNo.setText(jyInfo.getJsonMap().getGMF_NSRSBH());
         //地址电话
         tv_buyer_AddressPhone = findViewById(R.id.tv_buyer_AddressPhone);
-        tv_buyer_AddressPhone.setText(jyInfo.getData().getBuyerAddressPhone());
+        tv_buyer_AddressPhone.setText(jyInfo.getJsonMap().getGMF_DZDH());
         //开户行 开户行账号
         tv_buyer_Account = findViewById(R.id.tv_buyer_Account);
-        tv_buyer_Account.setText(jyInfo.getData().getBuyerAccount());
+        tv_buyer_Account.setText(jyInfo.getJsonMap().getGMF_YHZH());
+        //========================================================
         //销售方
         tv_saler_Name = findViewById(R.id.tv_saler_Name);
-        tv_saler_Name.setText(jyInfo.getData().getSalerName());
+        tv_saler_Name.setText(jyInfo.getJsonMap().getXSF_MC());
         //价税合计
         tv_total_Amount = findViewById(R.id.tv_total_Amount);
-        tv_total_Amount.setText("￥" + jyInfo.getData().getTotalAmount());
-        //税额
-        tv_tax_Amount = findViewById(R.id.tv_tax_Amount);
-        tv_tax_Amount.setText("￥" + jyInfo.getData().getTaxAmount());
-        //金额
-        tv_invoice_Amount = findViewById(R.id.tv_invoice_Amount);
-        tv_invoice_Amount.setText("￥" + jyInfo.getData().getInvoiceAmount());
-        //税率
-        tv_tax_rate = findViewById(R.id.tv_tax_rate);
-        tv_tax_rate.setText(jyInfo.getData().getDetailList().get(0).getTaxRate());
-        //商品名称
-        tv_goods_Name = findViewById(R.id.tv_goods_Name);
-        tv_goods_Name.setText(jyInfo.getData().getDetailList().get(0).getGoodsName());
-        //开票日期
-        tv_invoice_Date = findViewById(R.id.tv_invoice_Date);
+        tv_total_Amount.setText("￥" + jyInfo.getJsonMap().getJSHJ());
+        if (jyInfo.getJsonMap().getFPMX_LIST()!=null&jyInfo.getJsonMap().getFPMX_LIST().size()>0) {
+            //税额
+            tv_tax_Amount = findViewById(R.id.tv_tax_Amount);
+            tv_tax_Amount.setText("￥" + jyInfo.getJsonMap().getFPMX_LIST().get(0).getSE());
+            //金额
+            tv_invoice_Amount = findViewById(R.id.tv_invoice_Amount);
+            tv_invoice_Amount.setText("￥" + jyInfo.getJsonMap().getFPMX_LIST().get(0).getXMDJ());
+            //税率
+            tv_tax_rate = findViewById(R.id.tv_tax_rate);
+            tv_tax_rate.setText(jyInfo.getJsonMap().getFPMX_LIST().get(0).getSL());
+            //商品名称
+            tv_goods_Name = findViewById(R.id.tv_goods_Name);
+            tv_goods_Name.setText(jyInfo.getJsonMap().getFPMX_LIST().get(0).getXMMC());
+            //开票日期
+            tv_invoice_Date = findViewById(R.id.tv_invoice_Date);
 
-        tv_invoice_Date.setText("开票日期\n" + Mytools.strToDateFormat(jyInfo.getData().getInvoiceDate()));
+            tv_invoice_Date.setText("开票日期\n" + Mytools.strToDateFormat(jyInfo.getJsonMap().getKPRQ()));
+        }
+        tv_invoice_Date.setText("开票日期\n" + jyInfo.getJsonMap().getKPRQ());
         //发票代码
         tv_invoice_Code = findViewById(R.id.tv_invoice_Code);
-        tv_invoice_Code.setText("发票代码\n" + jyInfo.getData().getInvoiceCode());
+        tv_invoice_Code.setText("发票代码\n" + jyInfo.getJsonMap().getFP_DM());
         //发票号码
         tv_invoice_No = findViewById(R.id.tv_invoice_No);
-        tv_invoice_No.setText("发票号码\n" + jyInfo.getData().getInvoiceNo());
+        tv_invoice_No.setText("发票号码\n" + jyInfo.getJsonMap().getFP_HM());
         //抽奖按钮
         tv_choujiang = findViewById(R.id.tv_choujiang);
 
@@ -133,11 +138,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 fpname = fp_province + "增值税专用发票";
             } else if (Mytools.getfplx(fpdm).equals("02")) {
                 fpname = fp_province + "货运运输业增值税专用发票";
+            }else if (Mytools.getfplx(fpdm).equals("14")){
+                fpname = fp_province + "增值税电子普通发票(通行费)";
             }
         }
         return fpname;
     }
-
     /**
      * 发票省份确定
      */
@@ -169,10 +175,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             return;
         } else {
             switch (view.getId()) {
-                case R.id.tv_choujiang:
-                    if (!jyInfo.getData().getInvoiceCode().substring(0, 3).equals("042")) {
+                case R.id.tv_choujiang://042湖北
+                    if (!jyInfo.getJsonMap().getFP_DM().substring(0, 3).equals("042")) {
                         Toast.makeText(context, "非湖北地区发票无法参加抽奖！", Toast.LENGTH_SHORT).show();
-                    } else if (mDBUtil.find(jyInfo.getData().getCheckCode())) {
+                    } else if (mDBUtil.find(jyInfo.getJsonMap().getJYM())) {
                         Toast.makeText(context, "该发票已参与抽奖！", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -233,11 +239,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                                 wheelSurfView.startRotate(position);
                                 tv_input.setClickable(false);
                                 //插入数据
-                                historyContent.setFp_jym(jyInfo.getData().getCheckCode());
-                                historyContent.setFp_dm(jyInfo.getData().getInvoiceCode());
-                                historyContent.setFp_no(jyInfo.getData().getInvoiceNo());
-                                historyContent.setFp_date(jyInfo.getData().getInvoiceDate());
-                                historyContent.setFp_amount(jyInfo.getData().getTotalAmount());//
+                                historyContent.setFp_jym(jyInfo.getJsonMap().getJYM());
+                                historyContent.setFp_dm(jyInfo.getJsonMap().getFP_DM());
+                                historyContent.setFp_no(jyInfo.getJsonMap().getFP_HM());
+                                historyContent.setFp_date(jyInfo.getJsonMap().getKPRQ());
+                                historyContent.setFp_amount(jyInfo.getJsonMap().getJSHJ());//
                                 mDBUtil.Insert(historyContent);
 
                             }

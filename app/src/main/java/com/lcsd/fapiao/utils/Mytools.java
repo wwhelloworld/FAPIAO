@@ -1,6 +1,9 @@
 package com.lcsd.fapiao.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -46,6 +49,21 @@ public class Mytools {
             e.printStackTrace();
         }
         formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(newDate);
+    }
+    /**
+     * 将字符串格式yyyyMMdd的字符串转为日期，格式"yyyy-MM-dd"
+     */
+    public static String strToDateFormat1(String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        formatter.setLenient(false);
+        Date newDate = null;
+        try {
+            newDate = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(newDate);
     }
 
@@ -151,5 +169,32 @@ public class Mytools {
         return provincename;
 
     }
+    /**
+     *base64转成图片显示
+     */
 
+    public static Bitmap stringToBitmap(String string) {
+        Bitmap bitmap = null;
+        try {
+
+            byte[] bitmapArray = Base64.decode(string.split(",")[1], Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+    public static Bitmap stringtoBitmap(String string){
+        //将字符串转换成Bitmap类型
+        Bitmap bitmap=null;
+        try {
+            byte[]bitmapArray;
+            bitmapArray=Base64.decode(string, Base64.DEFAULT);
+            bitmap=BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
 }
